@@ -1,5 +1,8 @@
 var assert = require('assert'),
-    models = require('../lib')('postgres://reed:5432@localhost/next_transit_test');
+    config = require('../config/local.json'),
+    models = require('../lib')(config.test_database_path),
+    setup = require('./setup'),
+    seed = require('./seed');
 
 function assert_has_results(done, expected_length) {
   if(typeof expected_length === 'undefined') expected_length = 1;
@@ -12,15 +15,23 @@ function assert_has_results(done, expected_length) {
 describe('next-transit-models', function() {
   var agency_trimet = 1;
 
+  before(function(done) {
+    setup.setup(models, function() {
+      seed.seed(models, function() {
+        done();
+      });
+    });
+  });
+
   describe('agencies', function() {
     it('should find agencies', function(done) {
-      models.agencies.select(assert_has_results(done, 2));
+      models.agencies.select(assert_has_results(done, 1));
     });
   });
 
   describe('api_keys', function() {
     it('should find first api_key', function(done) {
-      models.api_keys.select(agency_trimet).first(function(result) {
+      models.api_keys.select().first(function(result) {
         assert.equal(typeof result, 'object');
         done();
       });

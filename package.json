@@ -1,13 +1,18 @@
 {
   "name": "next-transit-models",
   "description": "Sharable models for next-transit server and importer",
-  "version": "0.0.2",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/reedlauber/next-transit-models.git"
+  },
   "engines": {
     "node": "0.10.x",
-    "npm": "2.1.x"
+    "iojs": "1.2.x",
+    "npm": "2.5.x"
   },
   "dependencies": {
-    "likan": "file:../likan",
+    "likan": "git://github.com/reedlauber/likan.git",
     "promise": "~3.2.0"
   },
   "devDependencies": {
