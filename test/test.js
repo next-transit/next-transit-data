@@ -108,5 +108,18 @@ describe('next-transit-models', function() {
     it('should find trips', function(done) {
       models.trips.select(assert_has_results(done));
     });
+
+    it('should find longest trip', function(done) {
+      models.agencies.select().first(function(agency) {
+        models.routes.select().first(function(route) {
+          models.trips.get_longest_trip(agency.id, route.route_id, '0').then(function(trip) {
+            assert.equal(typeof trip, 'object');
+            done();
+          }, function(err) {
+            console.error(err);
+          });
+        });
+      });
+    });
   });
 });

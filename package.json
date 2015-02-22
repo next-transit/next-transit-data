@@ -1,7 +1,7 @@
 {
   "name": "next-transit-models",
   "description": "Sharable models for next-transit server and importer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "http://github.com/reedlauber/next-transit-models.git"

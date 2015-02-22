@@ -1,18 +1,23 @@
 function seed(models, done) {
-  models.agencies.insert({ agency_name:'trimet' }).commit();
-  models.api_keys.insert({ key:'tr@s17' }).commit();
-  models.calendar_dates.insert({}).commit();
-  models.directions.insert({}).commit();
-  models.route_types.insert({ slug:'catbus', label:'Catbus' }).commit();
-  models.routes.insert({}).commit();
-  models.shapes.insert({}).commit();
-  models.simplified_shapes.insert({}).commit();
-  models.simplified_stops.insert({}).commit();
-  models.stats.insert({}).commit();
-  models.stop_times.insert({}).commit();
-  models.stops.insert({}).commit();
-  models.trip_variants.insert({}).commit();
-  models.trips.insert({}).commit(done);
+  var route_id = '15';
+  var direction_id = '0';
+  var trip_id = '1234';
+
+  models.agencies.insert({ agency_name:'trimet' }).commit(function(agency) {
+    models.api_keys.insert({ agency_id:agency.id, key:'tr@s17' }).commit();
+    models.calendar_dates.insert({agency_id:agency.id }).commit();
+    models.directions.insert({ agency_id:agency.id, direction_id:direction_id }).commit();
+    models.route_types.insert({ agency_id:agency.id, slug:'catbus', label:'Catbus' }).commit();
+    models.routes.insert({ agency_id:agency.id, route_id:route_id }).commit();
+    models.shapes.insert({ agency_id:agency.id }).commit();
+    models.simplified_shapes.insert({ agency_id:agency.id }).commit();
+    models.simplified_stops.insert({ agency_id:agency.id }).commit();
+    models.stats.insert({ agency_id:agency.id }).commit();
+    models.stop_times.insert({ agency_id:agency.id, trip_id:trip_id }).commit();
+    models.stops.insert({ agency_id:agency.id }).commit();
+    models.trip_variants.insert({ agency_id:agency.id }).commit();
+    models.trips.insert({ agency_id:agency.id, route_id:route_id, direction_id:direction_id, trip_id:trip_id }).commit(done);
+  });
 }
 
 module.exports = exports = {
