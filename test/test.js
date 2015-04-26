@@ -7,17 +7,19 @@ var assert = require('assert'),
 function assert_has_results(done, expected_length) {
   if(typeof expected_length === 'undefined') expected_length = 1;
   return function(results) {
-    assert.equal(results.length, expected_length);
+    assert.equal(results.length, expected_length, 'assert_has_results failed');
     done();
   };
 }
 
 describe('next-transit-models', function() {
-  var agency_trimet = 1;
+  var agency_trimet = 1,
+      seed_agency;
 
   before(function(done) {
     setup.setup(models, function() {
-      seed.seed(models, function() {
+      seed.seed(models, function(agency) {
+        seed_agency = agency;
         done();
       });
     });
@@ -53,6 +55,24 @@ describe('next-transit-models', function() {
   describe('route_types', function() {
     it('should find route types', function(done) {
       models.route_types.select(assert_has_results(done));
+    });
+
+    it('should get get_by_agency_id', function(done) {
+      models.route_types.get_by_agency_id(seed_agency.id, assert_has_results(done));
+    });
+
+    it('should get get_by_route_type_id', function(done) {
+      models.route_types.get_by_route_type_id(seed_agency.id, 1, null, function(route_type, custom_route_type) {
+        assert(typeof route_type, 'object');
+        done();
+      });
+    });
+
+    it('should get get_by_slug', function(done) {
+      models.route_types.get_by_slug(seed_agency.id, 'catbus', function(route_type) {
+        assert(typeof route_type, 'object');
+        done();
+      });
     });
   });
 
