@@ -80,6 +80,13 @@ describe('next-transit-models', function() {
     it('should find routes', function(done) {
       models.routes.select(assert_has_results(done));
     });
+
+    it('should post-process results', function(done) {
+      models.routes.select(function(results) {
+        assert(typeof results[0].is_rail, 'boolean');
+        done();
+      });
+    });
   });
 
   describe('shapes', function() {
