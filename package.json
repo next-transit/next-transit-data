@@ -13,8 +13,9 @@
   },
   "dependencies": {
     "likan": "~0.2",
-    "promise": "~3.2.0"
+    "moment-timezone": "^0.3.1",
+    "promise": "~3.2.0",
+    "trim": "0.0.1"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
