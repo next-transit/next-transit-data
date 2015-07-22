@@ -1,6 +1,6 @@
 var assert = require('assert'),
     config = require('../config/local.json'),
-    models = require('../lib')(config.test_database_path),
+    models = require('../lib/models')(config.test_database_path),
     setup = require('./setup'),
     seed = require('./seed');
 
@@ -18,7 +18,7 @@ describe('next-transit-models', function() {
 
   before(function(done) {
     setup.setup(models, function() {
-      seed.seed(models, function(agency) {
+      seed.generate(models, function(agency) {
         seed_agency = agency;
         done();
       });
@@ -49,6 +49,30 @@ describe('next-transit-models', function() {
   describe('directions', function() {
     it('should find directions', function(done) {
       models.directions.select(assert_has_results(done));
+    });
+  });
+
+  describe('display_trips', function() {
+    it('should run get_by_day', function(done) {
+      var is_rail = false;
+      var route_id = seed.route_id;
+      var direction_id = seed.direction_id;
+      var from_id = seed.stop_id;
+      var day_of_week = 'sunday';
+      models.display_trips.get_by_day(seed_agency, is_rail, route_id, direction_id, from_id, day_of_week).then(function() {
+        done();
+      });
+    });
+
+    it('should run get_by_time', function(done) {
+      var is_rail = false;
+      var route_id = seed.route_id;
+      var direction_id = seed.direction_id;
+      var from_id = seed.stop_id;
+      var offset;
+      models.display_trips.get_by_time(seed_agency, is_rail, route_id, direction_id, from_id, offset).then(function() {
+        done();
+      });
     });
   });
 
@@ -116,6 +140,28 @@ describe('next-transit-models', function() {
   describe('stop_times', function() {
     it('should find stop_times', function(done) {
       models.stop_times.select(assert_has_results(done));
+    });
+
+    it('should run get_by_day', function(done) {
+      var is_rail = false;
+      var route_id = seed.route_id;
+      var direction_id = seed.direction_id;
+      var from_id = seed.stop_id;
+      var day_of_week = 'sunday';
+      models.stop_times.get_by_day(seed_agency, is_rail, route_id, direction_id, from_id, day_of_week).then(function() {
+        done();
+      });
+    });
+
+    it('should run get_by_time', function(done) {
+      var is_rail = false;
+      var route_id = seed.route_id;
+      var direction_id = seed.direction_id;
+      var from_id = seed.stop_id;
+      var offset;
+      models.stop_times.get_by_time(seed_agency, is_rail, route_id, direction_id, from_id, offset).then(function() {
+        done();
+      });
     });
   });
 
