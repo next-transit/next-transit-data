@@ -74,6 +74,18 @@ describe('next-transit-models', function() {
         done();
       });
     });
+
+    it('should handle to_stop', function(done) {
+      var is_rail = false;
+      var route_id = seed.route_id;
+      var direction_id = seed.direction_id;
+      var from_id = seed.stop_id;
+      var to_id = seed.stop_id;
+      var offset;
+      models.display_trips.get_by_time(seed_agency, is_rail, route_id, direction_id, from_id, offset, to_id).then(function() {
+        done();
+      });
+    });
   });
 
   describe('route_types', function() {
