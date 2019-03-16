@@ -1,7 +1,7 @@
 {
   "name": "next-transit-data",
   "description": "Sharable models for next-transit server and importer",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "repository": {
     "type": "git",
     "url": "http://github.com/next-transit/next-transit-data.git"
@@ -11,7 +11,7 @@
     "npm": "6.8.0"
   },
   "dependencies": {
-    "likan": "1.1.0",
+    "likan": "1.1.1",
     "moment-timezone": "^0.5.23",
     "promise": "^8.0.2",
     "trim": "0.0.1"
