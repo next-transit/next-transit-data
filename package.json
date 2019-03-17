@@ -11,7 +11,7 @@
     "npm": "6.8.0"
   },
   "dependencies": {
-    "likan": "1.1.1",
+    "likan": "^1.1.2",
     "moment-timezone": "^0.5.23",
     "promise": "^8.0.2",
     "trim": "0.0.1"
